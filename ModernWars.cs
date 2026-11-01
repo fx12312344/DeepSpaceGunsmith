@@ -192,6 +192,7 @@ namespace ModernWars
             GunModHelper.InitGunMod(item, drum ? 40 : 10, 0, 0, 0, drum ? -15 : 0, 0);
             GunModHelper.InitGunModBaseStats(item, drum ? 12 : 3, 0, 0, 0, drum ? -5 : 0, 0);
             if (drum) item.unitValue = 80;
+            item.unitValue = Economy011.RevenueCurve.NewBase(def.Id);
             GunModHelper.AllowOnlyWeapon(new[] { def.GunId }, item);
             return item;
         }
@@ -205,7 +206,7 @@ namespace ModernWars
             item.shortDescription = ammo ? EnglishLocalization.L.Pick(WeaponDescriptions.Text.Ammo(def[1]), "A batch of " + item.name + ", for firearms chambered in the same cartridge.") : (def[0] == "belt_mg42" ? EnglishLocalization.L.Pick("一条供MG 42使用的弹链，适合作为独立商品收藏或交易。", "An ammunition belt for the MG 42, sold as a collectible trade item.") : EnglishLocalization.L.Pick("用于整理和携带弹药的装弹夹，适合作为独立商品收藏或交易。", "An ammunition clip for organizing and carrying cartridges, sold as a collectible trade item."));
             item.name = ItemCopy.CommodityText.Name(ModId + "." + def[0], EnglishLocalization.L.English);
             item.shortDescription = ItemCopy.CommodityText.Description(ModId + "." + def[0], EnglishLocalization.L.English);
-            item.unitValue = ammo ? 35 : 40;
+            item.unitValue = ammo ? 35 : Economy011.RevenueCurve.NewBase(ModId + "." + def[0]);
             if (ammo) { WeaponCore.Ammo.Mark(item, int.Parse(def[2])); ContrabandHelper.InitContrabandItem(item, 1); }
             return item;
         }

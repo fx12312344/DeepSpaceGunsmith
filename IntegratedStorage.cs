@@ -100,12 +100,12 @@ namespace StorageContainers
             var item = ItemDirectory.CreateEmptyItem(null);
             item.identifier = d.Id; item.identifierName = d.Id;
             SetHighResolutionSprite(item, d.Key);
-            // Box art uses rectangular hit testing to avoid alpha-hit rejection; leave other items unchanged.
-            if (d.Key == "accessory_box" || d.Key == "ammo_box")
+            // Every dedicated storage item uses rectangular hit testing, including
+            // transparent space between rack supports. Keep both rendered backgrounds aligned.
+            if (item is GameItemElement visual)
             {
-                var visual = item as GameItemElement;
-                if (visual != null && visual.background != null && visual.background.image != null)
-                    visual.background.image.alphaHitTestMinimumThreshold = 0f;
+                if (visual.background?.image != null) visual.background.image.alphaHitTestMinimumThreshold = 0f;
+                if (visual.fakeBackground?.image != null) visual.fakeBackground.image.alphaHitTestMinimumThreshold = 0f;
             }
             item.SetShape(new GridShapeBuilder().SetDataFill(d.ItemWidth, d.ItemHeight, 1));
             item.SetName(UtilityItems.UtilityItemText.StorageName(d.Key, d.Name));

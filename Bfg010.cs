@@ -46,7 +46,7 @@ namespace Bfg010
             // Tier 2 mirrors the existing M82 game classification, not a real-world claim.
             ContrabandHelper.InitContrabandItem(item, 2);
             AudioHelper.InitHeavyGun(item);
-            item.unitValue = 1800;
+            item.unitValue = Economy011.RevenueCurve.NewBase(Id);
             GunHelper.InitGun(item, 130, 85, 85, 95, 30, 100, FictionalEnergyCaliber, 40, true);
             ColdWarModernExpansion.ExistingGunSlots.Configure(stock, rail, magazine, underbarrel, barrel, special1, special2, special3, true, true, true, true);
             GunHelper.SetEquipmentCondition(item, (ItemFeatureList.EquipmentCondition)2);

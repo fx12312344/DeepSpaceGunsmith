@@ -50,6 +50,13 @@ namespace GunsmithMachineIntegration
                 if (plastic.childItem != null) plastic.onSlotChangeAmountItemFunc?.Invoke(plastic.childItem,plastic,null);
                 if (nuclear.childItem != null) nuclear.onSlotChangeAmountItemFunc?.Invoke(nuclear.childItem,nuclear,null);
             };
+            MachineMaterialDeposit.BulkMaterialDeposit.Register(machine, () => CncReserveStandalone.Entry.IsActive, () => {
+                Convert(machine,metal,metal.childItem,"metal_ingot",MetalTag);
+                Convert(machine,electronics,electronics.childItem,"common_electronic",ElectronicsTag);
+                Convert(machine,plastic,plastic.childItem,"printer_plastic",PlasticTag);
+                Convert(machine,nuclear,nuclear.childItem,"nuclear_waste",NuclearTag);
+                result.Changed?.Invoke();
+            });
             return result;
         }
         private static MachineryPanel CreatePanel(GameItem machine, GameSlotInventory slot, string material, string tag, string zh, string en, Action changed)

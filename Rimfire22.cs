@@ -60,7 +60,7 @@ namespace Rimfire22
             item.SetContentWindow(window);
             item.name=EnglishLocalization.L.GunName(s.Key, s.Name);
             item.shortDescription=WeaponDescriptions.Text.Gun(s.Key);
-            item.unitValue=s.Price;
+            item.unitValue=Economy011.RevenueCurve.NewBase(s.Id);
             item.SetGameItemType("WEAPON"); item.SetGameItemType("FIREARM");
             if (s.Rifle) item.SetGameItemType("MIDLINE");
             ContrabandHelper.InitContrabandItem(item, 1);
@@ -78,7 +78,7 @@ namespace Rimfire22
             var gunName=EnglishLocalization.L.GunName(s.Key, s.Name);
             item.name=ItemCopy.CommodityText.Name(s.Id + ".magazine", EnglishLocalization.L.English);
             item.shortDescription=ItemCopy.CommodityText.Description(s.Id + ".magazine", EnglishLocalization.L.English);
-            item.unitValue=35;
+            item.unitValue=Economy011.RevenueCurve.NewBase(s.Id + ".magazine");
             GunModHelper.InitGunModMagazine(item);
             GunModHelper.InitGunMod(item, 10, 0, 0, 0, 0, 0);
             GunModHelper.InitGunModBaseStats(item, 3, 0, 0, 0, 0, 0);

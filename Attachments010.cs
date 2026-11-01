@@ -132,7 +132,7 @@ namespace Attachments010
             Grid50.Apply(item, size.Width, size.Height);
             item.name=AttachmentTextLocalization.Name(s.Key);
             item.shortDescription=AttachmentTextLocalization.Description(s.Key);
-            item.unitValue=s.Value;
+            item.unitValue=Economy011.RevenueCurve.NewBase("local.deepspace010.attachment."+s.Key);
             switch(s.Slot) {
                 case Slot.Rail: GunModHelper.InitGunModRail(item); break;
                 case Slot.Stock: GunModHelper.InitGunModStock(item); break;

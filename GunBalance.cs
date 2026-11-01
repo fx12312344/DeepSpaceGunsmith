@@ -36,7 +36,7 @@ namespace WeaponBalance
         public static void Apply(GameItem item, string key, int caliber, int repairability, bool moddable)
         {
             if (!Data.TryGetValue(key, out var a)) throw new ArgumentException("Missing weapon balance: " + key);
-            item.unitValue=a[6];
+            item.unitValue=Economy011.RevenueCurve.NewBaseForGun(key,a[6]);
             GunHelper.InitGun(item,a[0],a[1],a[2],a[3],a[4],a[5],caliber,repairability,moddable);
         }
     }

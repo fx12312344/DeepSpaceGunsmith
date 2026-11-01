@@ -4,7 +4,7 @@ A firearm collecting, customization, production and supply mod for **Probably St
 
 - Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=3829983019
 - Bilingual project page: https://share.mork.chat/p/4c435c32-65e4-40b6-af76-58eba4e88856
-- Current release: **0.1.1** — [bilingual update notes](docs/RELEASE-0.1.1.md).
+- Current release: **0.1.2** — [bilingual update notes](docs/RELEASE-0.1.2.md).
 - Game API target: **0.46D**; C# target: **.NET Standard 2.1**.
 - Mod identity: `local.coldwarmodern`; runtime assembly: `DeepSpaceGunsmith.dll`.
 
@@ -39,6 +39,10 @@ The package is written under `dist/DeepSpaceGunsmith-<version>/DeepSpaceGunsmith
 | `assets/`, `Paper/` | Locally generated inventory artwork and paper background |
 | `Books/`, `Localization/` | Business card definition and supplier language strings |
 | `manifest.xml` | Mod identity, version and requested capabilities |
+
+## Version 0.1.2 highlights
+
+Group-select separate owned material items and drag them onto either workbench icon to deposit them together. Items that do not fit the remaining reserve stay in the source inventory; split stacks first. The new firearm/part trading reference curve runs smoothly from 30% to 75% cost markup, with fixed pre-update procurement references; this is not a guarantee of every negotiated or manufactured profit. Updated unlit gun-rack and ammunition-workbench artwork is included.
 
 ## Material conversion
 

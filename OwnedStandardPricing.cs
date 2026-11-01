@@ -105,14 +105,15 @@ namespace NpcWeaponTrade
                 }
                 // Fair condition 88%, seller -20%: nominal cap proxy only. Actual
                 // seller offer may differ due to market, features, rounding and gear.
-                long cost = checked((long)item.unitValue * 704 / 1000);
+                if (!Economy011.RevenueCurve.TryGet(item.identifier, out var economicSpec) || economicSpec.Kind != "gun") continue;
+                long cost = Economy011.RevenueCurve.ReferenceCost(item.identifier, 88);
                 if (cost <= 0 || cost > int.MaxValue) continue;
                 string key = item.identifier;
                 if (distance < bestDistance || (distance == bestDistance && (cost < bestCost || (cost == bestCost && (bestKey == null || string.CompareOrdinal(key, bestKey) < 0)))))
                 { bestDistance = distance; bestCost = cost; bestBonus = bonus; bestKey = key; }
             }
             if (bestKey == null) return;
-            long target = checked((bestCost * 6 + 4) / 5);
+            long target = Economy011.RevenueCurve.TargetRevenue(bestKey, bestCost);
             if (!TryBase(target, bestBonus, factor, out int candidate)) return;
             // Check the whole bonus set, not only the reference gun's bonuses.
             // Nonnegative contributions make every intermediate sum safe too.

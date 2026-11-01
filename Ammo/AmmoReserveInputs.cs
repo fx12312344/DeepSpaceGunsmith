@@ -38,6 +38,13 @@ namespace AmmoMachineTest {
    slot.onSlotChangeAmountItemFunc+=(item,inv,marker)=>schedule(item);
    return MachineHelper.Panel(Pick(spec.Zh,spec.En),slot,"reserve_"+spec.Tag);
   }
+  internal static void RegisterBulk(GameItem machine,GameSlotInventory[] slots,Action changed) {
+   if(slots==null || slots.Length!=Specs.Length)throw new ArgumentException("Ammunition material slots do not match their specifications.");
+   MachineMaterialDeposit.BulkMaterialDeposit.Register(machine,()=>Entry.IsActive,()=>{
+    for(int i=0;i<slots.Length;i++)Convert(machine,slots[i],slots[i].childItem,Specs[i]);
+    changed?.Invoke();
+   });
+  }
   internal static void RefreshPending(GameSlotInventory[] slots,Action changed) {
    changed?.Invoke();
    foreach(var slot in slots) if(slot.childItem!=null)slot.onSlotChangeAmountItemFunc?.Invoke(slot.childItem,slot,null);

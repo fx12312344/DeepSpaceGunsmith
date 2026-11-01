@@ -82,7 +82,7 @@ namespace NewGuns010
             if (g.Category != Category.Pistol) item.SetGameItemType("MIDLINE");
             ContrabandHelper.InitContrabandItem(item, g.Tier);
             if (g.Category == Category.Pistol) AudioHelper.InitPistol(item); else AudioHelper.InitHeavyGun(item);
-            item.unitValue = g.Price;
+            item.unitValue = Economy011.RevenueCurve.NewBase(g.Id);
             GunHelper.InitGun(item, g.Firepower, g.Style, g.Reliability, g.Recoil, g.Ergonomics, g.Accuracy, g.Caliber, 40, true);
             var (window, stock, rail, magazine, underbarrel, barrel, special1, special2, special3) = GunModHelper.CreateGunModWindow(true, true, 5);
             item.SetContentWindow(window);

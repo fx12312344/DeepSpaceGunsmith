@@ -115,7 +115,7 @@ namespace EarlyFirearms
             Grid50.Apply(item, s.Pistol ? 4 : 8, 3);
             item.name = EnglishLocalization.L.GunName(s.Sprite, s.Name);
             item.shortDescription = WeaponDescriptions.Text.Gun(s.Sprite);
-            item.unitValue = s.Price;
+            item.unitValue = Economy011.RevenueCurve.NewBase(s.Id);
             item.SetGameItemType("WEAPON"); item.SetGameItemType("FIREARM"); item.SetGameItemType("LUXURY_ITEM");
             if (!s.Pistol) item.SetGameItemType("MIDLINE");
             // Game tier 1: antique-style firearms (a gameplay simplification).

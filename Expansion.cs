@@ -204,7 +204,7 @@ namespace ColdWarModernExpansion
             Grid50.Apply(item, 1, 2);
             item.name = ItemCopy.CommodityText.Name("ak47prototype.magazine", EnglishLocalization.L.English);
             item.shortDescription = ItemCopy.CommodityText.Description("ak47prototype.magazine", EnglishLocalization.L.English);
-            item.unitValue = 55;
+            item.unitValue = Economy011.RevenueCurve.NewBase("ak47prototype.magazine");
             GunModHelper.InitGunModMagazine(item);
             GunModHelper.InitGunMod(item, 10, 0, 0, 0, 0, 0);
             GunModHelper.InitGunModBaseStats(item, 3, 0, 0, 0, 0, 0);
@@ -248,7 +248,7 @@ namespace ColdWarModernExpansion
             Grid50.Apply(item, 1, 2);
             item.name = ItemCopy.CommodityText.Name("glock17prototype.magazine", EnglishLocalization.L.English);
             item.shortDescription = ItemCopy.CommodityText.Description("glock17prototype.magazine", EnglishLocalization.L.English);
-            item.unitValue = 40;
+            item.unitValue = Economy011.RevenueCurve.NewBase("glock17prototype.magazine");
             GunModHelper.InitGunModMagazine(item);
             GunModHelper.InitGunMod(item, 10, 0, 0, 0, 0, 0);
             GunModHelper.InitGunModBaseStats(item, 3, 0, 0, 0, 0, 0);
@@ -297,7 +297,7 @@ namespace ColdWarModernExpansion
             Grid50.Apply(item, g.Feed == "belt" ? 2 : 1, 2);
             item.name = ItemCopy.CommodityText.Name(g.Id + ".feed", EnglishLocalization.L.English);
             item.shortDescription = ItemCopy.CommodityText.Description(g.Id + ".feed", EnglishLocalization.L.English);
-            item.unitValue = g.Feed == "belt" ? 100 : 55;
+            item.unitValue = Economy011.RevenueCurve.NewBase(g.Id + ".feed");
             if (g.Feed == "mag")
             {
                 GunModHelper.InitGunModMagazine(item);

@@ -63,6 +63,7 @@ namespace AmmoMachineTest {
     AmmoReserveInputs.Create(machine,input2,AmmoReserveInputs.Specs[1],refresh),
     AmmoReserveInputs.Create(machine,input3,AmmoReserveInputs.Specs[2],refresh),
     AmmoReserveInputs.Create(machine,input4,AmmoReserveInputs.Specs[3],refresh));
+   AmmoReserveInputs.RegisterBulk(machine,slots,refresh);
    var name=new MachineryText(); var cost=new MachineryText(); var time=new MachineryText(); var status=new MachineryText(); int index=0,quantity=1;
    Action updateRecipe=null;
    var list=new AmmoRecipeList(i=>{index=i;updateRecipe?.Invoke();});

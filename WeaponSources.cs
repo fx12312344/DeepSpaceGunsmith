@@ -15,7 +15,8 @@ namespace WeaponSources
         private static readonly HashSet<string> IdSet = new HashSet<string>(Ids);
         private sealed class SellerOffer
         {
-            public StoreClient Seller;
+            // Bind to the exact visit, not a blueprint that another visit may reuse.
+            public StoreClientInstance Seller;
             public long Cap;
         }
         private static readonly ConditionalWeakTable<GameItem, SellerOffer> SellerOffers = new ConditionalWeakTable<GameItem, SellerOffer>();
@@ -114,11 +115,14 @@ namespace WeaponSources
                 int percent = condition == ItemFeatureList.EquipmentCondition.Poor ? 75 :
                     condition == ItemFeatureList.EquipmentCondition.Fair ? 88 :
                     condition == ItemFeatureList.EquipmentCondition.Good ? 100 : 0;
-                if (IdSet.Contains(candidate.Id) && percent != 0)
+                if (percent != 0 && Economy011.RevenueCurve.TryGet(candidate.Id, out var spec) && PlayerStore.HasInstance)
                 {
-                    long baseValue = Math.Max(0L, gun.unitValue);
-                    long cap = (long)((decimal)baseValue * percent * 80 / 10000);
-                    SellerOffers.Add(gun, new SellerOffer { Seller = scope.Seller, Cap = cap });
+                    var seller = PlayerStore.Instance.currentClientInstance;
+                    if (seller != null && ReferenceEquals(seller.GetClientBlueprint(), scope.Seller))
+                    {
+                        long cap = (long)((decimal)Math.Max(0, spec.Baseline) * percent * 80 / 10000);
+                        SaveOffer(gun, seller, cap);
+                    }
                 }
                 if (IdSet.Contains(candidate.Id)) { scope.MatchedGun = candidate.Id; scope.MatchedItem = gun; }
                 result = gun;
@@ -158,6 +162,53 @@ namespace WeaponSources
             } catch (Exception e) { UnityEngine.Debug.LogWarning("[DeepSpaceGunsmith] Seller supplies could not be offered: " + e.Message); }
             finally { scope.AddingSupplies = false; }
         }
+        // Read the same real feature as vanilla GunFrameHelper.GetCondition. There
+        // is no EQUIPMENT_CONDITION_TAG; do not infer condition from a marked-up quote.
+        private static bool TryGetOfferConditionPercent(GameItem item, out int percent)
+        {
+            percent = 100;
+            if (!item.IsGameItemType("FIREARM")) return true;
+            switch (item.FindItemFeatureByCategory("CATEGORY_EQUIPMENT_CONDITION")?.realCondition?.identifier)
+            {
+                case "equipment_condition_poor": percent = 75; return true;
+                case "equipment_condition_fair": percent = 88; return true;
+                case "equipment_condition_good": percent = 100; return true;
+                case "equipment_condition_excellent": percent = 112; return true;
+                case "equipment_condition_new": percent = 125; return true;
+                default: return false; // An unrecognised gun condition leaves vanilla in charge.
+            }
+        }
+        private static void SaveOffer(GameItem item, StoreClientInstance seller, long cap)
+        {
+            if (SellerOffers.TryGetValue(item, out var existingOffer) && ReferenceEquals(existingOffer.Seller, seller))
+                cap = Math.Min(cap, existingOffer.Cap);
+            // TryReplace may already have registered this same item before placement.
+            SellerOffers.Remove(item);
+            SellerOffers.Add(item, new SellerOffer { Seller = seller, Cap = cap });
+        }
+        public static void RegisterOffer(GameItem item, bool placed)
+        {
+            if (!ColdWarModernExpansion.Entry.IsActive || !placed || item == null) return;
+            try
+            {
+                if (GeneralHelper.IsItemOwned(item) || item.IsTag(GunHelper.SERVICE_GUN_TAG) ||
+                    !PlayerStore.HasInstance || EmporiumEntry.Instance == null ||
+                    EmporiumEntry.Instance.frontInvinvElement == null ||
+                    !ReferenceEquals(item.parentInventory, EmporiumEntry.Instance.frontInvinvElement) ||
+                    !Economy011.RevenueCurve.TryGet(item.identifier, out var spec)) return;
+                var seller = PlayerStore.Instance.currentClientInstance;
+                var blueprint = seller?.GetClientBlueprint();
+                if (blueprint == null || (blueprint.clientIntent != StoreClient.ClientIntent.SELL &&
+                    blueprint.clientIntent != StoreClient.ClientIntent.SELLNBUY) ||
+                    !TryGetOfferConditionPercent(item, out int percent)) return;
+                long cap = (long)((decimal)Math.Max(0, spec.Baseline) * percent * 80 / 10000);
+                SaveOffer(item, seller, cap);
+            }
+            catch (Exception)
+            {
+                // Quote bookkeeping must not turn a successful placement into a failure.
+            }
+        }
         public static void ForgetOwned(GameItem gun, bool owned)
         {
             if (owned && gun != null) SellerOffers.Remove(gun);
@@ -168,7 +219,10 @@ namespace WeaponSources
             if (GeneralHelper.IsItemOwned(gun)) { SellerOffers.Remove(gun); return; }
             if (!ColdWarModernExpansion.Entry.IsActive || !PlayerStore.HasInstance ||
                 PlayerStore.Instance.currentClientInstance == null ||
-                PlayerStore.Instance.currentClientInstance.GetClientBlueprint() != offer.Seller) return;
+                !ReferenceEquals(PlayerStore.Instance.currentClientInstance, offer.Seller)) return;
+            var seller = offer.Seller.GetClientBlueprint();
+            if (seller == null || (seller.clientIntent != StoreClient.ClientIntent.SELL &&
+                seller.clientIntent != StoreClient.ClientIntent.SELLNBUY) || gun.IsTag(GunHelper.SERVICE_GUN_TAG)) return;
             if (value > offer.Cap) value = offer.Cap;
         }
         public static bool SkipSmgSlotMod(GameItem gun, string modId)
@@ -186,7 +240,11 @@ namespace WeaponSources
     [HarmonyPatch(typeof(PlayerStore), nameof(PlayerStore.TryAddDirectSellingItemToTable), new[] { typeof(GameItem), typeof(bool), typeof(bool), typeof(bool), typeof(int) })]
     public static class SellerGunPlacementPatch
     {
-        public static void Postfix(GameItem __0, bool __result) => Sources.RecordGunPlacement(__0, __result);
+        public static void Postfix(GameItem __0, bool __1, bool __result)
+        {
+            Sources.RecordGunPlacement(__0, __result);
+            if (!__1) Sources.RegisterOffer(__0, __result);
+        }
     }
     [HarmonyPatch(typeof(GameItem), nameof(GameItem.GetNegociatedValue))]
     public static class SellerOfferPricePatch
