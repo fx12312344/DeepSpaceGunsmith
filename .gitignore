@@ -1,0 +1,38 @@
+# Build outputs and local game references
+**/bin/
+**/obj/
+dist/
+GameReferences/
+lib/
+*.dll
+*.pdb
+*.exe
+*.zip
+*.user
+*.suo
+
+# Credentials, accounts, private configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+*.p12
+*.vdf
+steam_appid.txt
+local.settings.json
+
+# Saves, logs, backups and tooling state
+[Ss]aves/
+[Bb]ackups/
+[Ll]ogs/
+*.log
+.mork/
+.vs/
+.idea/
+.vscode/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db

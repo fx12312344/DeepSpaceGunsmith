@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>DeepSpaceGunsmith</AssemblyName>
+    <LangVersion>latest</LangVersion>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GameManaged Condition="'$(GameManaged)' == '' and '$(PROBABLY_STOLEN_MANAGED)' != ''">$(PROBABLY_STOLEN_MANAGED)</GameManaged>
+    <GameManaged Condition="'$(GameManaged)' == '' and '$(GameRoot)' != ''">$(GameRoot)/Probably Stolen_Data/Managed</GameManaged>
+  </PropertyGroup>
+  <Target Name="ValidateGameManaged" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="'$(GameManaged)' == ''" Text="Set GameManaged or PROBABLY_STOLEN_MANAGED to your own game's Probably Stolen_Data/Managed directory. Proprietary game assemblies are not distributed in this repository." />
+    <Error Condition="'$(GameManaged)' != '' and !Exists('$(GameManaged)/Assembly-CSharp.dll')" Text="Assembly-CSharp.dll was not found in GameManaged. Use the Managed directory from your legally installed game." />
+  </Target>
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp"><HintPath>$(GameManaged)/Assembly-CSharp.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.UI"><HintPath>$(GameManaged)/UnityEngine.UI.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.UIModule"><HintPath>$(GameManaged)/UnityEngine.UIModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Unity.TextMeshPro"><HintPath>$(GameManaged)/Unity.TextMeshPro.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.CoreModule"><HintPath>$(GameManaged)/UnityEngine.CoreModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine"><HintPath>$(GameManaged)/UnityEngine.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="0Harmony"><HintPath>$(GameManaged)/0Harmony.dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+</Project>

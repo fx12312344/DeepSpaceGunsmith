@@ -1,0 +1,24 @@
+{
+  "id": "peace_margin_card",
+  "title": "Peace Margin Industries / 和平余量工业",
+  "background": "peace_card_bg",
+  "width": 278,
+  "height": 174,
+  "designWidth": 139,
+  "designHeight": 87,
+  "sounds": true,
+  "draggable": true,
+  "zoomable": true,
+  "chrome": [
+    { "type": "button", "id": "close", "action": "close", "x": 123, "y": 8, "w": 14, "h": 14, "text": "×" }
+  ],
+  "pages": [{ "name": "Front / 正面", "elements": [] }],
+  "item": {
+    "id": "local.powdersupplierprototype.peace_margin_card",
+    "nameLoc": "card_name",
+    "descriptionLoc": "card_description",
+    "sprite": "peace_card_icon",
+    "value": 0,
+    "important": true
+  }
+}

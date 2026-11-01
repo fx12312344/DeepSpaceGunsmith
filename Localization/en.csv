@@ -1,0 +1,46 @@
+card_name,Peace Margin Industries Business Card
+card_description,A business card bearing a tidy industrial design. Peace Margin Industries; phone 75284. For peace's sake, stock up in moderation.
+contact,Peace Margin Industries
+phone_upgrade,Powder Supplier Phone
+phone_upgrade_desc,Unlock phone 75284 and request a free sample on your first call.
+share,Powder Supplier Shareholder
+share_desc,Four free units per week. Normal wholesale discount 20%; shareholders receive 15 additional percentage points (35% total). Final counter quote applies.
+intro1,Hello and thank you for calling Peace Margin Industries. Your call is important to regional stability.
+intro2,We believe lasting peace comes from being well prepared.
+intro3,We offer reliable smokeless powder to forward-thinking merchants. You decide its use; the market interprets peace.
+intro4,As a new customer you can receive four free units of smokeless powder. Our courier will bring them on the next delivery.
+intro5,We hope this is the start of a long and stable partnership.
+intro6,Peace Margin Industries: for peace's sake stock up in moderation.
+greeting,Hello and thank you for calling Peace Margin Industries.
+paid_menu,How much margin would you like to reserve for peace?
+small,Order 4 units of smokeless powder. Base price 148 before discounts; next-day delivery.
+large,Order 8 units of smokeless powder. Base price 280 before discounts; next-day delivery.
+small_reply1,A wise choice. We will arrange four units; the courier is expected tomorrow.
+small_reply2,Pay on delivery. Thank you for contributing to a stable business environment.
+large_reply1,Your demand for peace appears remarkably stable.
+large_reply2,We will arrange eight units; the courier is expected tomorrow.
+large_reply3,Pay on delivery. Bulk purchasing is the strongest vote of confidence in the future.
+end_call,Nothing for now.
+goodbye,Of course. Peace Margin Industries will be here for your next preparation.
+cooldown1,Your previous order is being processed. We cannot accept another order while we arrange every margin of peace.
+cooldown2,We expect to need another {0} days. Thank you for your patience and continued trust.
+unavailable1,Sorry; Peace Margin Industries cannot take your call right now.
+unavailable2,Please try again later. Peace is never absent; occasionally it just needs to queue.
+order_failed,Sorry; we cannot arrange that delivery right now. Please try again later.
+queue_unknown,Delivery queue status is unavailable.
+queue_empty,No supplier orders are in the future delivery queue.
+queue_pending,{0} supplier order(s) in the future queue; earliest queue days remaining: {1}.
+courier,Peace Margin Industries Courier
+delivery_paid1,Peace Margin Industries. Your order is here.
+delivery_paid2,Check the quantity; the price and wholesale discount are on the counter. I will leave once the transaction is complete.
+delivery_intro1,Four free units of smokeless powder for a new Peace Margin Industries customer.
+delivery_intro2,The company says they are a free gift. We hope you like them enough to order more.
+delivery_dividend1,Peace Margin Industries shareholder delivery. Four units of smokeless powder free of charge.
+delivery_dividend2,The company asked me to thank you for investing in peace.
+done,Transaction complete. Thank you for choosing Peace Margin Industries.
+wild_license_intro_1,"I hear you got yourself a level-one weapons permit. Good. At least this time you paid first and started doing business second."
+wild_license_intro_2,"A permit alone won't fill your shelves. You'd better find out where to get guns, smokeless powder and percussion caps."
+wild_license_intro_3,"For smokeless powder and percussion caps, check the Introductions section of my network. Buy the supplier's contact information and you can place orders yourself."
+wild_license_intro_4,"Looking for firearms? My network also offers the Retired Gunsmith service. Buy it and I'll put you in touch with a firearms wholesaler."
+wild_license_intro_5,"Of course, an introduction is just an introduction. You'll still have to pay for the goods."
+wild_license_intro_6,"I know these people. I don't run their charity fund."
