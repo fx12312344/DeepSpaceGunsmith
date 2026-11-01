@@ -4,6 +4,7 @@ A firearm collecting, customization, production and supply mod for **Probably St
 
 - Steam Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=3829983019
 - Bilingual project page: https://share.mork.chat/p/4c435c32-65e4-40b6-af76-58eba4e88856
+- Current release: **0.1.1** — [bilingual update notes](docs/RELEASE-0.1.1.md).
 - Game API target: **0.46D**; C# target: **.NET Standard 2.1**.
 - Mod identity: `local.coldwarmodern`; runtime assembly: `DeepSpaceGunsmith.dll`.
 

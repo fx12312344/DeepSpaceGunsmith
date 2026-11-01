@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Manifest>
-  <ID>local.coldwarmodern</ID><Name>Deep Space Gunsmith</Name><Author>本地制作</Author><ModVersion>0.1.0-dev</ModVersion>
+  <ID>local.coldwarmodern</ID><Name>Deep Space Gunsmith</Name><Author>本地制作</Author><ModVersion>0.1.1</ModVersion>
   <Description>古董至现代枪械、BFG、批量枪匠机床、弹药制造台、枪械批发商、和平余量工业供货商与储物容器。</Description>
   <GameVersions><Version>0.46D</Version></GameVersions><Prerequisites />
   <Assemblies><Assembly>DeepSpaceGunsmith.dll</Assembly></Assemblies><Capabilities><Capability>dynamic-code</Capability><Capability>reflection-external</Capability></Capabilities>
